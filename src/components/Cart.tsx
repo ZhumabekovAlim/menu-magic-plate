@@ -3,10 +3,17 @@ import { ShoppingBag, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
 import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export const Cart = () => {
   const { items, removeFromCart, clearCart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
+  const [showOrderDialog, setShowOrderDialog] = useState(false);
 
   const total = items.reduce((sum, item) => sum + item.price, 0);
 
@@ -88,10 +95,7 @@ export const Cart = () => {
                       <span className="text-lg font-semibold">{total} ₽</span>
                     </div>
                     <Button
-                      onClick={() => {
-                        clearCart();
-                        setIsOpen(false);
-                      }}
+                      onClick={() => setShowOrderDialog(true)}
                       className="mt-4 w-full bg-gold hover:bg-gold-dark"
                     >
                       Показать официанту
@@ -103,6 +107,37 @@ export const Cart = () => {
           </>
         )}
       </AnimatePresence>
+
+      <Dialog open={showOrderDialog} onOpenChange={setShowOrderDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Заказ клиента</DialogTitle>
+          </DialogHeader>
+          <div className="mt-4 space-y-4">
+            {items.map((item) => (
+              <div key={item.id} className="flex justify-between border-b pb-2">
+                <span>{item.name}</span>
+                <span className="font-medium">{item.price} ₽</span>
+              </div>
+            ))}
+            <div className="flex justify-between pt-2 text-lg font-semibold">
+              <span>Итого:</span>
+              <span>{total} ₽</span>
+            </div>
+          </div>
+          <div className="mt-6 flex justify-end">
+            <Button
+              onClick={() => {
+                clearCart();
+                setShowOrderDialog(false);
+                setIsOpen(false);
+              }}
+            >
+              Подтвердить заказ
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
