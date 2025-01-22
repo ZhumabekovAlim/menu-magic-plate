@@ -237,6 +237,51 @@ const menuItems = {
   },
 };
 
+const promotionalBanners = {
+  "hot-dishes": {
+    title: "Горячие блюда дня",
+    description: "Скидка 20% на все горячие блюда по будням с 15:00 до 18:00",
+    gradient: "linear-gradient(to right, #ee9ca7, #ffdde1)",
+    image: "https://images.unsplash.com/photo-1500673922987-e212871fec22",
+  },
+  salads: {
+    title: "Здоровое питание",
+    description: "Попробуйте наши новые салаты с авокадо",
+    gradient: "linear-gradient(184.1deg, rgba(249,255,182,1) 44.7%, rgba(226,255,172,1) 67.2%)",
+    image: "https://images.unsplash.com/photo-1551038247-3d9af20df552",
+  },
+  soups: {
+    title: "Согревающее предложение",
+    description: "К любому супу хлебная корзина в подарок",
+    gradient: "linear-gradient(90deg, hsla(29, 92%, 70%, 1) 0%, hsla(0, 87%, 73%, 1) 100%)",
+    image: "https://images.unsplash.com/photo-1460574283810-2aab119d8511",
+  },
+  desserts: {
+    title: "Сладкие моменты",
+    description: "Десерт дня со скидкой 15%",
+    gradient: "linear-gradient(90deg, rgb(245,152,168) 0%, rgb(246,237,178) 100%)",
+    image: "https://images.unsplash.com/photo-1501854140801-50d01698950b",
+  },
+  "bar-menu": {
+    title: "Счастливые часы",
+    description: "Коктейли 2 по цене 1 с 18:00 до 20:00",
+    gradient: "linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%)",
+    image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b",
+  },
+  appetizers: {
+    title: "Закуски к вину",
+    description: "При заказе бутылки вина закуски со скидкой 30%",
+    gradient: "linear-gradient(90deg, hsla(46, 73%, 75%, 1) 0%, hsla(176, 73%, 88%, 1) 100%)",
+    image: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f",
+  },
+  pasta: {
+    title: "Паста дня",
+    description: "Спагетти карбонара всего за 590₽ по понедельникам",
+    gradient: "linear-gradient(90deg, hsla(139, 70%, 75%, 1) 0%, hsla(63, 90%, 76%, 1) 100%)",
+    image: "https://images.unsplash.com/photo-1612874742237-6526221588e3",
+  },
+};
+
 const Index = () => {
   const scrollToCategory = (categoryId: string) => {
     const element = document.getElementById(categoryId);
@@ -277,6 +322,33 @@ const Index = () => {
       <main className="container mt-36">
         {Object.entries(menuItems).map(([id, category]) => (
           <section key={id} id={id} className="mb-12">
+            {promotionalBanners[id] && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-8 overflow-hidden rounded-lg shadow-lg"
+                style={{
+                  background: promotionalBanners[id].gradient,
+                }}
+              >
+                <div className="relative flex min-h-[200px] items-center justify-between p-6">
+                  <div className="z-10 max-w-[60%] text-white">
+                    <h3 className="mb-2 text-2xl font-bold">
+                      {promotionalBanners[id].title}
+                    </h3>
+                    <p className="text-lg opacity-90">
+                      {promotionalBanners[id].description}
+                    </p>
+                  </div>
+                  <div
+                    className="absolute right-0 top-0 h-full w-[40%] bg-cover bg-center bg-no-repeat opacity-80"
+                    style={{
+                      backgroundImage: `url(${promotionalBanners[id].image})`,
+                    }}
+                  />
+                </div>
+              </motion.div>
+            )}
             <h2 className="mb-6 text-2xl font-semibold">{category.title}</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {category.items.map((dish) => (
