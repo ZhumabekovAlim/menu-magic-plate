@@ -1,7 +1,7 @@
 import { Cart } from "@/components/Cart";
 import { Header } from "@/components/Header";
 import { MainCarousel } from "@/components/MainCarousel";
-import { MenuSection } from "@/components/MenuSection";
+import { DishCard } from "@/components/DishCard";
 
 const mainBanners = [
   {
