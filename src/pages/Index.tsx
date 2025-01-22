@@ -18,8 +18,8 @@ const mainBanners = [
     title: "Доставка",
     description: "Бесплатная доставка при заказе от 2000₽",
     image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b",
-  },
-};
+  }
+];
 
 const menuItems = {
   "hot-dishes": {
