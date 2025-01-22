@@ -3,6 +3,34 @@ import { Cart } from "@/components/Cart";
 import { motion } from "framer-motion";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
+const mainBanners = [
+  {
+    title: "Специальное предложение",
+    description: "Скидка 30% на все меню в честь открытия",
+    gradient: "linear-gradient(90deg, #FF6B6B 0%, #4ECDC4 100%)",
+    image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+  },
+  {
+    title: "Бизнес-ланч",
+    description: "Каждый будний день с 12:00 до 16:00",
+    gradient: "linear-gradient(90deg, #4B79A1 0%, #283E51 100%)",
+    image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21",
+  },
+  {
+    title: "Доставка",
+    description: "Бесплатная доставка при заказе от 2000₽",
+    gradient: "linear-gradient(90deg, #834d9b 0%, #d04ed6 100%)",
+    image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b",
+  },
+];
 
 const menuItems = {
   "hot-dishes": {
@@ -320,6 +348,56 @@ const Index = () => {
       </header>
 
       <main className="container mt-36">
+        <div className="mb-12">
+          <Carousel className="w-full">
+            <CarouselContent>
+              {mainBanners.map((banner, index) => (
+                <CarouselItem key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="overflow-hidden rounded-xl shadow-lg"
+                    style={{
+                      background: banner.gradient,
+                      minHeight: "300px",
+                    }}
+                  >
+                    <div className="relative flex h-full items-center justify-between p-8">
+                      <div className="z-10 max-w-[60%] text-white">
+                        <motion.h2
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.2 }}
+                          className="mb-4 text-4xl font-bold"
+                        >
+                          {banner.title}
+                        </motion.h2>
+                        <motion.p
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.4 }}
+                          className="text-xl opacity-90"
+                        >
+                          {banner.description}
+                        </motion.p>
+                      </div>
+                      <div
+                        className="absolute right-0 top-0 h-full w-[50%] bg-cover bg-center bg-no-repeat opacity-90 transition-transform duration-700 hover:scale-105"
+                        style={{
+                          backgroundImage: `url(${banner.image})`,
+                        }}
+                      />
+                    </div>
+                  </motion.div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
+
         {Object.entries(menuItems).map(([id, category]) => (
           <section key={id} id={id} className="mb-12">
             {promotionalBanners[id] && (
