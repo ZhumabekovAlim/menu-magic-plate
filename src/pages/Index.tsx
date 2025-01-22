@@ -2,28 +2,24 @@ import { Cart } from "@/components/Cart";
 import { Header } from "@/components/Header";
 import { MainCarousel } from "@/components/MainCarousel";
 import { MenuSection } from "@/components/MenuSection";
-import { PromotionalBanner } from "@/components/PromotionalBanner";
 
 const mainBanners = [
   {
     title: "Специальное предложение",
     description: "Скидка 30% на все меню в честь открытия",
-    gradient: "linear-gradient(90deg, #FF6B6B 0%, #4ECDC4 100%)",
     image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
   },
   {
     title: "Бизнес-ланч",
     description: "Каждый будний день с 12:00 до 16:00",
-    gradient: "linear-gradient(90deg, #4B79A1 0%, #283E51 100%)",
     image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21",
   },
   {
     title: "Доставка",
     description: "Бесплатная доставка при заказе от 2000₽",
-    gradient: "linear-gradient(90deg, #834d9b 0%, #d04ed6 100%)",
     image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b",
   },
-];
+};
 
 const menuItems = {
   "hot-dishes": {
@@ -318,19 +314,15 @@ const Index = () => {
       <main className="container mt-36">
         <MainCarousel banners={mainBanners} />
 
-        <div className="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {Object.entries(promotionalBanners).slice(0, 3).map(([id, banner]) => (
-            <PromotionalBanner key={id} {...banner} />
-          ))}
-        </div>
-
         {Object.entries(menuItems).map(([id, category]) => (
-          <MenuSection
-            key={id}
-            id={id}
-            title={category.title}
-            items={category.items}
-          />
+          <section key={id} id={id} className="mb-12">
+            <h2 className="mb-6 text-2xl font-semibold">{category.title}</h2>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {category.items.map((dish) => (
+                <DishCard key={dish.id} {...dish} />
+              ))}
+            </div>
+          </section>
         ))}
       </main>
 

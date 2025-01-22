@@ -10,7 +10,6 @@ import {
 interface Banner {
   title: string;
   description: string;
-  gradient: string;
   image: string;
 }
 
@@ -29,36 +28,31 @@ export const MainCarousel = ({ banners }: MainCarouselProps) => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                className="overflow-hidden rounded-xl shadow-lg"
-                style={{
-                  background: banner.gradient,
-                }}
+                className="relative overflow-hidden rounded-xl shadow-lg"
               >
-                <div className="flex flex-col items-center">
-                  <div
-                    className="h-[200px] w-full bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
-                    style={{
-                      backgroundImage: `url(${banner.image})`,
-                    }}
-                  />
-                  <div className="w-full p-6 text-center text-white">
-                    <motion.h2
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="mb-2 text-2xl font-bold"
-                    >
-                      {banner.title}
-                    </motion.h2>
-                    <motion.p
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="text-lg opacity-90"
-                    >
-                      {banner.description}
-                    </motion.p>
-                  </div>
+                <div
+                  className="h-[400px] w-full bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
+                  style={{
+                    backgroundImage: `url(${banner.image})`,
+                  }}
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-6 text-center text-white backdrop-blur-sm">
+                  <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="mb-2 text-2xl font-bold"
+                  >
+                    {banner.title}
+                  </motion.h2>
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-lg opacity-90"
+                  >
+                    {banner.description}
+                  </motion.p>
                 </div>
               </motion.div>
             </CarouselItem>
