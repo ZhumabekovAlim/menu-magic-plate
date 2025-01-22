@@ -30,7 +30,7 @@ const mainBanners = [
     gradient: "linear-gradient(90deg, #834d9b 0%, #d04ed6 100%)",
     image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b",
   },
-];
+};
 
 const menuItems = {
   "hot-dishes": {
@@ -360,16 +360,21 @@ const Index = () => {
                     className="overflow-hidden rounded-xl shadow-lg"
                     style={{
                       background: banner.gradient,
-                      minHeight: "300px",
                     }}
                   >
-                    <div className="relative flex h-full items-center justify-between p-8">
-                      <div className="z-10 max-w-[60%] text-white">
+                    <div className="flex flex-col items-center">
+                      <div
+                        className="h-[200px] w-full bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
+                        style={{
+                          backgroundImage: `url(${banner.image})`,
+                        }}
+                      />
+                      <div className="w-full p-6 text-center text-white">
                         <motion.h2
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.2 }}
-                          className="mb-4 text-4xl font-bold"
+                          className="mb-2 text-2xl font-bold"
                         >
                           {banner.title}
                         </motion.h2>
@@ -377,17 +382,11 @@ const Index = () => {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.4 }}
-                          className="text-xl opacity-90"
+                          className="text-lg opacity-90"
                         >
                           {banner.description}
                         </motion.p>
                       </div>
-                      <div
-                        className="absolute right-0 top-0 h-full w-[50%] bg-cover bg-center bg-no-repeat opacity-90 transition-transform duration-700 hover:scale-105"
-                        style={{
-                          backgroundImage: `url(${banner.image})`,
-                        }}
-                      />
                     </div>
                   </motion.div>
                 </CarouselItem>
