@@ -30,7 +30,7 @@ const mainBanners = [
     gradient: "linear-gradient(90deg, #834d9b 0%, #d04ed6 100%)",
     image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b",
   },
-};
+];
 
 const menuItems = {
   "hot-dishes": {
@@ -442,3 +442,4 @@ const Index = () => {
 };
 
 export default Index;
+
