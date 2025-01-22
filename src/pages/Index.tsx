@@ -1,15 +1,8 @@
-import { DishCard } from "@/components/DishCard";
 import { Cart } from "@/components/Cart";
-import { motion } from "framer-motion";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Header } from "@/components/Header";
+import { MainCarousel } from "@/components/MainCarousel";
+import { MenuSection } from "@/components/MenuSection";
+import { PromotionalBanner } from "@/components/PromotionalBanner";
 
 const mainBanners = [
   {
@@ -320,119 +313,24 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
-      <header className="fixed top-0 z-10 w-full bg-white py-4 shadow-sm">
-        <div className="container">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-4 text-center text-3xl font-semibold"
-          >
-            Наше меню
-          </motion.h1>
-          <ScrollArea className="w-full whitespace-nowrap">
-            <div className="flex space-x-4 px-4">
-              {Object.entries(menuItems).map(([id, category]) => (
-                <Button
-                  key={id}
-                  variant="ghost"
-                  className="flex-shrink-0"
-                  onClick={() => scrollToCategory(id)}
-                >
-                  {category.title}
-                </Button>
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </div>
-      </header>
+      <Header menuItems={menuItems} scrollToCategory={scrollToCategory} />
 
       <main className="container mt-36">
-        <div className="mb-12">
-          <Carousel className="w-full">
-            <CarouselContent>
-              {mainBanners.map((banner, index) => (
-                <CarouselItem key={index}>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="overflow-hidden rounded-xl shadow-lg"
-                    style={{
-                      background: banner.gradient,
-                    }}
-                  >
-                    <div className="flex flex-col items-center">
-                      <div
-                        className="h-[200px] w-full bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
-                        style={{
-                          backgroundImage: `url(${banner.image})`,
-                        }}
-                      />
-                      <div className="w-full p-6 text-center text-white">
-                        <motion.h2
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.2 }}
-                          className="mb-2 text-2xl font-bold"
-                        >
-                          {banner.title}
-                        </motion.h2>
-                        <motion.p
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.4 }}
-                          className="text-lg opacity-90"
-                        >
-                          {banner.description}
-                        </motion.p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+        <MainCarousel banners={mainBanners} />
+
+        <div className="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {Object.entries(promotionalBanners).slice(0, 3).map(([id, banner]) => (
+            <PromotionalBanner key={id} {...banner} />
+          ))}
         </div>
 
         {Object.entries(menuItems).map(([id, category]) => (
-          <section key={id} id={id} className="mb-12">
-            {promotionalBanners[id] && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-8 overflow-hidden rounded-lg shadow-lg"
-                style={{
-                  background: promotionalBanners[id].gradient,
-                }}
-              >
-                <div className="relative flex min-h-[200px] items-center justify-between p-6">
-                  <div className="z-10 max-w-[60%] text-white">
-                    <h3 className="mb-2 text-2xl font-bold">
-                      {promotionalBanners[id].title}
-                    </h3>
-                    <p className="text-lg opacity-90">
-                      {promotionalBanners[id].description}
-                    </p>
-                  </div>
-                  <div
-                    className="absolute right-0 top-0 h-full w-[40%] bg-cover bg-center bg-no-repeat opacity-80"
-                    style={{
-                      backgroundImage: `url(${promotionalBanners[id].image})`,
-                    }}
-                  />
-                </div>
-              </motion.div>
-            )}
-            <h2 className="mb-6 text-2xl font-semibold">{category.title}</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {category.items.map((dish) => (
-                <DishCard key={dish.id} {...dish} />
-              ))}
-            </div>
-          </section>
+          <MenuSection
+            key={id}
+            id={id}
+            title={category.title}
+            items={category.items}
+          />
         ))}
       </main>
 
@@ -442,4 +340,3 @@ const Index = () => {
 };
 
 export default Index;
-
